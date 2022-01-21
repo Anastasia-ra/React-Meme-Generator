@@ -52,6 +52,8 @@ export const generateButton = css`
   grid-row: 6/7;
   font-size: 1.2em ;
   text-align: center;
+  height: 1;
+  line-height: 1;
   background-color: #89b0ae;
   border-radius: 15px;
   border-style: none;
@@ -85,6 +87,8 @@ export const downloadButton = css`
   font-size: 1.2em ;
   align-self: center;
   text-align: center;
+  height: 1;
+  line-height: 1;
   background-color: #89b0ae;
   border-radius: 15px;
   border-style: none;
@@ -123,4 +127,10 @@ export const middlePartStyle = css`
   background-color: ${color1};
   justify-self: stretch;
   align-self: stretch;
+`;
+
+export const historyStyle = css`
+  grid-column: 2/4;
+  grid-row: 7/9;
+  list-style: decimal;
 `;
