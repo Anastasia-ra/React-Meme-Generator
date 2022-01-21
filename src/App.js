@@ -1,5 +1,22 @@
-import './App.css';
-import { useState, useEffect } from 'react';
+import {
+  appStyle,
+  inputStyle,
+  tTextInput,
+  bTextInput,
+  memeTemplateInput,
+  generateButton,
+  previewHeading,
+  previewImage,
+  downloadButton,
+  mainHeading,
+  leftPartStyle,
+  rightPartStyle,
+  middlePartStyle,
+} from './Style';
+import { useState } from 'react';
+import useDownloader from 'react-use-downloader';
+/** @jsxImportSource @emotion/react */
+// import { css } from '@emotion/react';
 
 function App() {
   const [topText, setTopText] = useState('');
@@ -7,30 +24,11 @@ function App() {
   const [templateUrl, setTemplateUrl] = useState('');
   const [memeTemplate, SetMemeTemplate] = useState('');
   const [memeUrl, setMemeUrl] = useState('');
-  //   // Get template list
-  //   function fetchTemplates() {
-  //     return fetch('https://api.memegen.link/templates')
-  //       .then((response) => response.json())
-  //       .then((data) => {
-  //         // Creates array list of url templates
-  //         let templateList = data.map((e) => ({
-  //           name: e.name,
-  //           url: e.blank,
-  //         }
-  //         // Searchs for the input in the arary
-  //         for (let i in templateList ) {
-  //           if (i.name.includes(memeTemplate)) {
-  //             setTemplateUrl(i.url);
-  //             break;
-  //           };
-  //         }
 
-  //         ));
-  //         console.log(templateObject);
-  //       })
-  //       .catch((error) => console.error(error));
-  //   }
+  // To download the meme
+  const { download } = useDownloader();
 
+  // Search for template meme with user input
   function searchArray(arr) {
     for (let i = 0; i < arr.length; i++) {
       // Check if string includes and makes it case insensitive
@@ -43,40 +41,34 @@ function App() {
       }
     }
   }
-
-  // Search for template URL
-  function SearchUrl(event) {
-    SetMemeTemplate(event.currentTarget.value);
-    // Get the templates
-    function fetchTemplates() {
-      return fetch('https://api.memegen.link/templates')
-        .then((response) => response.json())
-        .then((data) => {
-          // Creates array list of url templates
-          const templateList = data.map((e) => ({
-            name: e.name,
-            url: e.blank,
-          }));
-          console.log(templateList);
-          searchArray(templateList);
-        })
-        .catch((error) => console.error(error));
-    }
-    fetchTemplates();
+  // Get template
+  function fetchTemplates() {
+    return fetch('https://api.memegen.link/templates')
+      .then((response) => response.json())
+      .then((data) => {
+        // Creates array list of url templates
+        const templateList = data.map((e) => ({
+          name: e.name,
+          url: e.blank,
+        }));
+        console.log(templateList);
+        searchArray(templateList);
+      })
+      .catch((error) => console.error(error));
   }
 
-  function CreateMeme({ templateUrl, topText, bottomText }) {
-    // useEffect(
-    //   (event) => {
-    //     setTopText(event.currentTarget.value);
-    //   },
-    //   [topText],
-    // );
-    // Contains data to create meme
+  // Search for the template URL
+  function searchUrl(event) {
+    SetMemeTemplate(event.currentTarget.value);
+    fetchTemplates().catch((error) => console.error(error));
+  }
+
+  // Create meme with user inputs
+  function createMeme(url, topString, bottomString) {
     const bodyData = {
-      background: templateUrl,
+      background: url,
       style: 'string',
-      text_lines: [topText, bottomText],
+      text_lines: [topString, bottomString],
       extension: 'string',
       redirect: true,
     };
@@ -101,43 +93,66 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <label>
+    <div css={appStyle} className="App">
+      <div css={leftPartStyle}> </div>
+      <div css={rightPartStyle}> </div>
+      <div css={middlePartStyle}> </div>
+      <h1 css={mainHeading}>Meme Generator</h1>
+      <label css={tTextInput}>
         Top text
+        <br />
         <input
+          css={inputStyle}
           value={topText}
           onChange={(event) => {
-            setTopText(event.currentTarget.value);
-            CreateMeme({ templateUrl, topText, bottomText });
+            setTopText(event.target.value);
           }}
         />
       </label>
-      <label>
+      <label css={bTextInput}>
         Bottom text
+        <br />
         <input
+          css={inputStyle}
           value={bottomText}
           onChange={(event) => {
-            setBottomText(event.currentTarget.value);
-            CreateMeme({ templateUrl, topText, bottomText });
+            setBottomText(event.target.value);
           }}
         />
       </label>
-      <label>
-        Meme template
+      <label css={memeTemplateInput}>
+        Meme Template
+        <br />
         <input
+          css={inputStyle}
           value={memeTemplate}
           onChange={(event) => {
-            SearchUrl(event);
-            CreateMeme({ templateUrl, topText, bottomText });
+            searchUrl(event);
           }}
         />
       </label>
-      <img src={memeUrl} alt="Meme Template" data-test-id="meme-image" />
-      <a href={memeUrl} download>
-        Click to download
-      </a>
+      <button
+        css={generateButton}
+        data-test-id="generate-meme"
+        onClick={() => createMeme(templateUrl, topText, bottomText)}
+      >
+        Generate
+      </button>
+      <h2 css={previewHeading}>Preview your Meme</h2>
+      <img
+        css={previewImage}
+        src={memeUrl}
+        alt="Meme Template"
+        data-test-id="meme-image"
+      />
+
+      <button
+        css={downloadButton}
+        onClick={() => download(memeUrl, 'meme.png')}
+      >
+        Download
+      </button>
     </div>
   );
 }
-
 export default App;
