@@ -76,8 +76,8 @@ export const previewImage = css`
   grid-column: 3/4;
   grid-row: 3/6;
   object-fit: scale-down;
-  width: auto;
-  height: 300px;
+  width: 300px;
+  height: auto;
 `;
 export const downloadButton = css`
   grid-column: 3/4;
