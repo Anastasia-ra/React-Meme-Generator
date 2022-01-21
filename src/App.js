@@ -16,7 +16,7 @@ import {
 } from './Style';
 import { useState, React } from 'react';
 import useDownloader from 'react-use-downloader';
-import { useTable } from 'react-table';
+import DisplayHistory from './DisplayHistory';
 /** @jsxImportSource @emotion/react */
 // import { css } from '@emotion/react';
 
@@ -27,7 +27,7 @@ function App() {
   const [memeTemplate, SetMemeTemplate] = useState('');
   const [memeUrl, setMemeUrl] = useState('');
   const [memeName, setMemeName] = useState('');
-  const [memeHistory, setMemeHistory] = useState('');
+  const [memeHistory, setMemeHistory] = useState([]);
 
   // To download the meme
   const { download } = useDownloader();
@@ -168,6 +168,8 @@ function App() {
       >
         Download
       </button>
+
+      <DisplayHistory obj={memeHistory} />
     </div>
   );
 }
