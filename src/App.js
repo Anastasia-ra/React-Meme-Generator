@@ -12,7 +12,6 @@ import {
   leftPartStyle,
   rightPartStyle,
   middlePartStyle,
-  historyStyle,
 } from './Style';
 import { useState, React } from 'react';
 import useDownloader from 'react-use-downloader';
