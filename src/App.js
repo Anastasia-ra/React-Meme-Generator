@@ -13,8 +13,9 @@ import {
   rightPartStyle,
   middlePartStyle,
 } from './Style';
-import { useState } from 'react';
+import { useState, React } from 'react';
 import useDownloader from 'react-use-downloader';
+import { useTable } from 'react-table';
 /** @jsxImportSource @emotion/react */
 // import { css } from '@emotion/react';
 
@@ -24,6 +25,8 @@ function App() {
   const [templateUrl, setTemplateUrl] = useState('');
   const [memeTemplate, SetMemeTemplate] = useState('');
   const [memeUrl, setMemeUrl] = useState('');
+  const [memeName, setMemeName] = useState('');
+  const [memeHistory, setMemeHistory] = useState('');
 
   // To download the meme
   const { download } = useDownloader();
@@ -34,6 +37,8 @@ function App() {
       // Check if string includes and makes it case insensitive
       if (arr[i].name.toLowerCase().includes(memeTemplate.toLowerCase())) {
         setTemplateUrl(arr[i].url);
+        setMemeName(arr[i].name);
+        console.log(arr[i].name);
         console.log(arr[i].url);
         break;
       } else if (i === arr.length - 1) {
@@ -134,7 +139,17 @@ function App() {
       <button
         css={generateButton}
         data-test-id="generate-meme"
-        onClick={() => createMeme(templateUrl, topText, bottomText)}
+        onClick={() => {
+          createMeme(templateUrl, topText, bottomText);
+          // Add this meme to the meme history
+          const currentMeme = {
+            topText: topText,
+            bottomText: bottomText,
+            memeTemplate: memeName,
+          };
+          setMemeHistory((prev) => [...prev, currentMeme]);
+          console.log(memeHistory);
+        }}
       >
         Generate
       </button>
