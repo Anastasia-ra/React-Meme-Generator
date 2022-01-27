@@ -24,7 +24,7 @@ function App() {
   const [bottomText, setBottomText] = useState('');
   const [templateUrl, setTemplateUrl] = useState('');
   const [memeTemplate, SetMemeTemplate] = useState('');
-  const [memeUrl, setMemeUrl] = useState('');
+  const [memeUrl, setMemeUrl] = useState();
   const [memeName, setMemeName] = useState('');
   const [memeHistory, setMemeHistory] = useState([]);
 
