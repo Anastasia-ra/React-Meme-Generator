@@ -24,7 +24,9 @@ function App() {
   const [bottomText, setBottomText] = useState('');
   const [templateUrl, setTemplateUrl] = useState('');
   const [memeTemplate, SetMemeTemplate] = useState('');
-  const [memeUrl, setMemeUrl] = useState('');
+  const [memeUrl, setMemeUrl] = useState(
+    'https://api.memegen.link/images/custom/Your_text/could_be_here.png?background=https://api.memegen.link/images/doge.png&style=string&status=201',
+  );
   const [memeName, setMemeName] = useState('');
   const [memeHistory, setMemeHistory] = useState([]);
 
