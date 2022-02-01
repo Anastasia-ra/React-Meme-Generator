@@ -114,6 +114,20 @@ function App() {
           onChange={(event) => {
             setTopText(event.target.value);
           }}
+          // Possibility to create meme by pressing Enter
+          onKeyPress={(event) => {
+            if (event.key === 'Enter') {
+              createMeme(templateUrl, topText, bottomText);
+              // Add this meme to the meme history
+              const currentMeme = {
+                topText: topText,
+                bottomText: bottomText,
+                memeTemplate: memeName,
+              };
+              setMemeHistory((prev) => [...prev, currentMeme]);
+              console.log(memeHistory);
+            }
+          }}
         />
       </label>
       <label css={bTextInput}>
@@ -125,6 +139,20 @@ function App() {
           onChange={(event) => {
             setBottomText(event.target.value);
           }}
+          // Possibility to create meme by pressing Enter
+          onKeyPress={(event) => {
+            if (event.key === 'Enter') {
+              createMeme(templateUrl, topText, bottomText);
+              // Add this meme to the meme history
+              const currentMeme = {
+                topText: topText,
+                bottomText: bottomText,
+                memeTemplate: memeName,
+              };
+              setMemeHistory((prev) => [...prev, currentMeme]);
+              console.log(memeHistory);
+            }
+          }}
         />
       </label>
       <label css={memeTemplateInput}>
@@ -135,6 +163,20 @@ function App() {
           value={memeTemplate}
           onChange={(event) => {
             searchUrl(event);
+          }}
+          // Possibility to create meme by pressing Enter
+          onKeyPress={(event) => {
+            if (event.key === 'Enter') {
+              createMeme(templateUrl, topText, bottomText);
+              // Add this meme to the meme history
+              const currentMeme = {
+                topText: topText,
+                bottomText: bottomText,
+                memeTemplate: memeName,
+              };
+              setMemeHistory((prev) => [...prev, currentMeme]);
+              console.log(memeHistory);
+            }
           }}
         />
       </label>
