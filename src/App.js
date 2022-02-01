@@ -157,7 +157,7 @@ function App() {
         />
       </label>
       <label css={memeTemplateInput}>
-        Meme Template
+        Meme template
         <br />
         <input
           css={inputStyle}
@@ -202,7 +202,7 @@ function App() {
       <img
         css={previewImage}
         src={memeUrl}
-        alt="Meme Template"
+        alt="Meme template"
         data-test-id="meme-image"
       />
 
